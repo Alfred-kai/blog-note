@@ -1,9 +1,9 @@
-**ÅÐ¶ÏIEä¯ÀÀÆ÷**
+**åˆ¤æ–­IEæµè§ˆå™¨**
 ```
-function judgeIE£¨£©{
+function judgeIEï¼ˆï¼‰{
   const userAgent = navigator.userAgent;
   const isEdge = userAgent.indexOf('Edge') > -1;
-  const isIE = userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1; // <11ä¯ÀÀÆ÷
+  const isIE = userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1; // <11æµè§ˆå™¨
   const isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf('rv:11.0') > -1;
 }
 ```
