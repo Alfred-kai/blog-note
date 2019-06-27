@@ -1,4 +1,5 @@
-**判断IE浏览器**
+**判断 IE 浏览器**
+
 ```
 function judgeIE（）{
   const userAgent = navigator.userAgent;
