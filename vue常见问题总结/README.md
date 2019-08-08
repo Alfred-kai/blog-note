@@ -88,3 +88,5 @@ async beforeRouteEnter(to, from, next) {
 ```
 
 至此，问题解决。有同学可能会问，在 `vm` 中调用 `judge` 方法时，`mounted` 已执行，此时页面已渲染，再去判断初始状态，会不会有闪烁问题？本人经过测试，发现不会，据此推断，在 `mounted` 执行结束之后，页面没有开始更新动作，而是在执行完 `vm` 回调之后，再去渲染。这样的话，逻辑上就行得通了，但是这个只是推断，还需要在源码层面找到依据才可以。
+
+[:arrow_heading_up: 回顶部](#top)&nbsp;&nbsp;&nbsp;&nbsp; [:question: 有问题](https://github.com/Alfred-kai/blog-note/issues/1)
