@@ -3,6 +3,7 @@
 **<span id="top">目录</span>**
 
 - [静态资源-图片引用](#1)
+- [图片压缩处理](#gzipImg)
 
 ## <span id="1">:palm_tree: 静态资源-图片引用 </span>
 
@@ -53,3 +54,24 @@
   一般来说，相对路径大概率是可以被解析为依赖的，也有例外；但有时相对路径过长，需要使用别名 vue-cli3 自身提供了 `~ + webpack alias`这种形式，在上面的例子中也有列举；
 
   具体 vue-cli 中 URL 转换规则，参看官网 [URL 转换规则](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#url-%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99);
+
+  [:arrow_heading_up: 回顶部](#top)
+
+## <span id="gzipImg">:palm_tree: 图片压缩处理 </span>
+
+webpack [压缩和优化图像](https://www.webpackjs.com/guides/asset-management/#%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87)，使用[`image-webpack-loader`](https://github.com/tcoopman/image-webpack-loader/blob/master/package.json);
+
+具体`vue-config.js`中配置如下:
+
+```
+chainWebpack: config => {
+    config.module
+      .rule("gzipImg")
+      .test(/\.(gif|png|jpe?g|svg)$/i)
+      .use("file-loader")
+      .loader("image-webpack-loader")
+      .end()
+}
+```
+
+启用打包之后，查看`dist/img`文件夹，会发现文件夹大小，小了至少一半；
