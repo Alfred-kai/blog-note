@@ -47,5 +47,9 @@
   4. `var ice = new Image() ;ice.src = "/common/activity/ice.png"` 这种形式 在任何位置 不行
 
 - ### `引用静态资源总结`
+
   引入静态文件能否成功，关键是看 引用的资源能否被解析为模块依赖；在`vue-cli`官网中 [从相对路径导入](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#%E4%BB%8E%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AF%BC%E5%85%A5) 对此作了解释,当然作者说的不是太全面，所以我在上面将所有的情况列举了出来。
+
   一般来说，相对路径大概率是可以被解析为依赖的，也有例外；但有时相对路径过长，需要使用别名 vue-cli3 自身提供了 `~ + webpack alias`这种形式，在上面的例子中也有列举；
+
+  具体 vue-cli 中 URL 转换规则，参看官网 [URL 转换规则](https://cli.vuejs.org/zh/guide/html-and-static-assets.html#url-%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99);
