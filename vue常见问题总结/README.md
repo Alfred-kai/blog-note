@@ -3,6 +3,7 @@
 <span id="top">目录</span>
 
 - [beforeRouteEnter 异步获取数据给实例问题](#1)
+- [vue 钩子函数理解](#2)
 
 ### <span id="1">:palm_tree: beforeRouteEnter 异步获取数据给实例问题</span>
 
@@ -89,4 +90,36 @@ async beforeRouteEnter(to, from, next) {
 
 至此，问题解决。有同学可能会问，在 `vm` 中调用 `judge` 方法时，`mounted` 已执行，此时页面已渲染，再去判断初始状态，会不会有闪烁问题？本人经过测试，发现不会，据此推断，在 `mounted` 执行结束之后，页面没有开始更新动作，而是在执行完 `vm` 回调之后，再去渲染。这样的话，逻辑上就行得通了，但是这个只是推断，还需要在源码层面找到依据才可以。
 
+[:arrow_heading_up: 回顶部](#top)&nbsp;&nbsp;&nbsp;&nbsp; [:question: 有问题](https://github.com/Alfred-kai/blog-note/issues/1)
+
+### <span id="2">:palm_tree: vue 钩子函数理解</span>
+
+`data` 中定义的变量，在 `beforeCreate` 钩子中是拿不到的，`undefined`；在 `created` 钩子函数中可以拿到；
+假如定义的变量
+
+```
+{
+   screenWidth: window.innerWidth
+}
+```
+
+那么，也符合上述规则，即 `created` 中才能拿到；
+
+加入定义的变量
+
+```
+{
+   canvasId:document.getElementById("canFly")
+}
+```
+
+即在 `data` 中定义拿一个 dom 元素。从上例中来看，`data` 在 `created` 钩子函数开始起作用，但是**created 是在模板渲染成 html 前调用**，此时 html 元素还没有渲染；所以 `canvalId`变量自始至终都是`null`；`mounted` 钩子函数 **在模板渲染成 html 后调用**,此时 dom 元素才渲染完成；如果要想达成上述效果，必须在 `mounted` 钩子中赋值，才能实现。
+
+```
+mounted(){
+  this.canvalId=document.getElementById("canFly")
+}
+```
+
+vue 自身语法 `ref` 规律同上
 [:arrow_heading_up: 回顶部](#top)&nbsp;&nbsp;&nbsp;&nbsp; [:question: 有问题](https://github.com/Alfred-kai/blog-note/issues/1)
