@@ -5,6 +5,7 @@
 - [ng eject](#1)
 - [--base-href 和 --deploy-url](#2)
 - [CSS 写法](#3)
+- [ng-zorro icon cdn 配置](#4)
 
 ### <span id="1">:palm_tree:ng eject</span>
 
@@ -100,4 +101,19 @@ ng build --prod --aot --env=prod --output-path=mayihr/ --base-href https://www.b
 
 html 中，无论是相对路径还是 绝对路径，都不会放在依赖树中，不会被配置。因为 angualr-cli 团队，明确指出没有这样做；
 
-![]()
+### <span id="4">:palm_tree:ng-zorro icon cdn 配置</span>
+
+将项目打包编译后，入口文件和其余资源文件分开放置（入口文件在公司自身服务器，其余资源文件放置 oss 服务器），会出现 Zorro icon 加载不到的问题；这里要用到`NzIconService`的`changeAssetsSource()`方法；
+
+```
+import { NzIconService } from 'ng-zorro-antd';
+constructor(
+    private _iconService: NzIconService
+  ) {
+    const cdnUrl="http://www.babi.com/"
+    this._iconService.changeAssetsSource(cdnUrl);
+  }
+```
+
+`zorro icon`动态加载和静态加载的区别：
+静态加载，需要使用`import`提前引用，并且会将图标打包到编译文件；而动态加载，是当需要使用图标时，使用 http 请求，动态请求`assets`中文件；
