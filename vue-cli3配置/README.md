@@ -5,6 +5,7 @@
 - [静态资源-图片引用](#1)
 - [图片压缩处理](#gzipImg)
 - [环境变量](#3)
+- [查看 vue-cli 项目配置](#4)
 
 ## <span id="1">:palm_tree: 静态资源-图片引用 </span>
 
@@ -103,3 +104,11 @@ vue-cli 创建的项目有且仅有三种模式 `development` `production` `test
   如果没定义，其中`process.env.NODE_ENV`的默认值为当前模式的值，`process.env.BASE_URL`默认为`/`；
   如果定义了，`NODE_ENV`变量只有`.env.[mode]`文件可以覆盖定义，`.env`文件定义无效；`BASE_URL`变量，不管在哪个文件定义，都无法被覆盖，值都是`/`;
 - 除了`NODE_ENV`和`BASE_URL`这两个变量，定义其余变量，必须加前缀`VUE_APP_`才能被`process.env`读取；
+
+## <span id="4">:palm_tree: 查看 vue-cli 项目配置 </span>
+
+```
+vue ui
+```
+
+`vue-cli`提供的可视化项目命令，可以查看相应的依赖等，最重要的是可以查看 webpack 配置。只要在相应的项目根目录，命令行中 输入 `vue ui`，即会自动打开一个服务器，进行操作。
