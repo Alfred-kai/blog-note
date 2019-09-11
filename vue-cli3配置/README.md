@@ -87,8 +87,11 @@ vue-cli 创建的项目有且仅有三种模式 `development` `production` `test
 
 可以在命令行使用`--mode`来修改相应的模式：
 
-- 其值只能为 `development` `production` `test`,如果设置其他的值，比如 `prod`等，默认改为`development`模式;
-- `vue-cli-service serve` 设置`--mode`无效，一直处于`development`模式;
+- `process.env.NODE_ENV`其值只能为 `development` `production` `test`;
+  如果设置其他的值，比如 `prod`等，`process.env.NODE_ENV`默认改为`development`;
+- `vue-cli-service serve` 设置`--mode`,`process.env.NODE_ENV`恒等于`development`,一直处于`development`模式;
+- 上述三种情况是，当使用`--mode`来修改相应的模式时，对于`process.env.NODE_ENV`的影响，会受到限制；
+  但是不会影响，读取相应的环境变量文件，例如，`vue-cli-service build --mode history`设置了`history`模式，此时虽然`process.env.NODE_ENV=development`，但是依然会获取`.env.history`文件中的变量
 
 不同的模式下，会读取不同的环境变量配置文件：
 
