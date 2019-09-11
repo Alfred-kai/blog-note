@@ -7,6 +7,7 @@
 - [比较某两次提交某一文件差异](#3)
 - [还原已经删除的本地分支](#4)
 - [合并两个本地分支](#5)
+- [创建本地分支](#6)
 
 ### <span id="1">:palm_tree: 比较某两次提交 差异</span>
 
@@ -74,4 +75,11 @@ git diff head 796a791241bfef7f5426bb631be9c430a25acc2a -- src/utils/index.js
 
 ```
 git merge A
+```
+
+### <span id="6">:palm_tree: 创建本地分支</span>
+
+```
+git branch test
+
 ```

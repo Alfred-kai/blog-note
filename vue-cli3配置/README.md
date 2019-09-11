@@ -4,6 +4,7 @@
 
 - [静态资源-图片引用](#1)
 - [图片压缩处理](#gzipImg)
+- [环境变量](#3)
 
 ## <span id="1">:palm_tree: 静态资源-图片引用 </span>
 
@@ -75,3 +76,27 @@ chainWebpack: config => {
 ```
 
 启用打包之后，查看`dist/img`文件夹，会发现文件夹大小，小了至少一半；
+
+## <span id="3">:palm_tree: 环境变量 </span>
+
+vue-cli 创建的项目有且仅有三种模式 `development` `production` `test`;
+
+- `development`模式默认用于 `vue-cli-service serve`
+- `production`模式默认用于 `vue-cli-service build` 和 `vue-cli-service test:e2e`
+- `test`模式默认用于 `vue-cli-service test:unit`
+
+可以在命令行使用`--mode`来修改相应的模式：
+
+- 其值只能为 `development` `production` `test`,如果设置其他的值，比如 `prod`等，默认改为`development`模式;
+- `vue-cli-service serve` 设置`--mode`无效，一直处于`development`模式;
+
+不同的模式下，会读取不同的环境变量配置文件：
+
+- `.env` 文件不管处于什么模式下，都会读取；
+  即 当处于`development`模式时，会读取`.env`和`.env.development`两个环境变量文件；
+  如果两个文件有相同的变量，则`.env.development`中变量会覆盖`.env`中的变量；
+- 环境变量文件中，存在`NODE_ENV`和`BASE_URL`两个变量；
+  不管有没有明确写出来，都可以通过`process.env.NODE_ENV` 和 `process.env.BASE_URL`获取到；
+  如果没定义，其中`process.env.NODE_ENV`的默认值为当前模式的值，`process.env.BASE_URL`默认为`/`；
+  如果定义了，`NODE_ENV`变量只有`.env.[mode]`文件可以覆盖定义，`.env`文件定义无效；`BASE_URL`变量，不管在哪个文件定义，都无法被覆盖，值都是`/`;
+- 除了`NODE_ENV`和`BASE_URL`这两个变量，定义其余变量，必须加前缀`VUE_APP_`才能被`process.env`读取；
