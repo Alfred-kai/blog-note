@@ -85,3 +85,24 @@ onShow(){
 ```
 
 通过上面的写法,可以实现由 A 进入 B 页面，B 页面获取数据；由 C 页面回退至 B 页面，可以更新数据
+
+### <span id="5">:palm_tree: onLoad 执行之后，onShow 不执行</span>
+
+```
+  execOnLoad: false,
+  onLoad() {
+    this.execOnLoad = true;
+    this.getUserInfo();
+  },
+  onShow() {
+    if (this.execOnLoad) {
+      this.execOnLoad = false;
+      return
+    };
+    const {
+      hasUserInfo,
+      is_bind
+    } = getStorage(USER_YG);
+    this.updatePage(hasUserInfo, is_bind);
+  }
+```

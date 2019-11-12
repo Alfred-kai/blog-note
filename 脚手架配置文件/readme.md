@@ -94,7 +94,7 @@ function runOnce(fn, context) { //控制让函数只触发一次
 
 ### <span id="debounce">:palm_tree: 消抖/节流 </span>
 
-[消抖](https://www.jianshu.com/p/8b0757bdaeaf)
+[Throttle 和 Debounce 的本质及一个简单的实现](https://www.jianshu.com/p/8b0757bdaeaf) 讲的很详细
 
 ```
 // 节流函数
