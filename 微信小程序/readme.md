@@ -99,7 +99,7 @@ onShow(){
       this.execOnLoad = false;
       return
     };
-    const {
+    const {+
       hasUserInfo,
       is_bind
     } = getStorage(USER_YG);

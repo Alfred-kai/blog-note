@@ -1,0 +1,34 @@
+<html>
+
+<head>
+  <title>test document.write</title>
+
+  <!-- <script src="./test.js" defer></script> -->
+  <!-- <script src="https://gate.soperson.com/20003623/10098212.js" charset="utf-8"></script> -->
+  <!-- <script>
+    document.write("<div>test3</div>")
+  </script> -->
+  <!-- <script defer type="text/javascript" charset="utf-8" src="http://lead.soperson.com/20003623/10098212.js"></script> -->
+
+</head>
+
+<body>
+  <div>test1</div>
+  <div>test2</div>
+  <!-- <script src="https://gate.soperson.com/20003623/10098212.js" charset="utf-8"></script> -->
+  <script>
+    var leyuObj = document.querySelector("#leyu");
+
+    if (!leyuObj) {
+      var script = document.createElement("script");
+      script.id = "leyu";
+      script.type = "text/javascript";
+      script.charset = "utf-8";
+      script.src = "./test.js";
+      console.log(script);
+      document.body.appendChild(script);
+    }
+  </script>
+</body>
+
+</html>
