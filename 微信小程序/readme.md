@@ -1,9 +1,15 @@
 # 微信小程序日常问题
 
-<span id="top">目录</span>
+## <span id="top">目录</span>
 
 - [在小程序组件中，查找 dom 元素报错 null](#1)
 - [在小程序组件中，canvas 始终为空白问题](#2)
+- [在小程序组件中，canvas 悬浮，不随页面滚动问题](#3)
+- [点击 tabBar 中回退箭头时，回退到指定页面](#4)
+- [onLoad onShow onReady 三个页面生命周期比较](#5)
+- [onLoad 执行之后，onShow 不执行](#6)
+- [onUnload 触发时机问题](#7)
+- [onUnload 使用 wx.navigateBack 导致小程序闪退问题](#8)
 
 ### <span id="1">:palm_tree: 在小程序组件中，查找 dom 元素报错 null </span>
 
@@ -86,7 +92,7 @@ onShow(){
 
 通过上面的写法,可以实现由 A 进入 B 页面，B 页面获取数据；由 C 页面回退至 B 页面，可以更新数据
 
-### <span id="5">:palm_tree: onLoad 执行之后，onShow 不执行</span>
+### <span id="6">:palm_tree: onLoad 执行之后，onShow 不执行</span>
 
 ```
   execOnLoad: false,
@@ -99,10 +105,36 @@ onShow(){
       this.execOnLoad = false;
       return
     };
-    const {+
+    const {
       hasUserInfo,
       is_bind
     } = getStorage(USER_YG);
     this.updatePage(hasUserInfo, is_bind);
   }
 ```
+
+### <span id="7">:palm_tree: onUnload 触发时机问题</span>
+
+先说结论
+
+- 点击后退
+- 使用`wx.redirectTo`
+- 使用`wx.reLaunch`
+
+换句话说，只要是卸载当前页面（getPages() 出栈都会触发）；
+注意：
+如果此页面需要用到`wx.redirectTo`,不要与`onUnload`钩子函数中逻辑冲突
+
+### <span id="8">:palm_tree: onUnload 使用 wx.navigateBack 导致小程序闪退问题</span>
+
+当小程序由 A 页面至 B 页面，之间需要跳转中间页（比如，输入安全码等）；在 B 页面点击回退时，往往需要用到 onUnload 钩子函数配合 wx.navigateBack 来使用,如下：
+
+```
+onUnload(){
+  wx.navigateBack({
+    delta:100
+  })
+}
+```
+
+但是，现在出现了 小程序闪退现象，去掉这句之后，就好了；目前先记录下来；之后分析原因；
