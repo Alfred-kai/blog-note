@@ -9,4 +9,4 @@
 
 ## <span id="1">:palm_tree: 目录结构 </span>
 
-- ![catalog](../public/img/axios.png)
+- ![catalog](https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/axios/axios.png "catalog")
