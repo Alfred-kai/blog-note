@@ -14,6 +14,9 @@ var defaults = require('./defaults');
 function createInstance(defaultConfig) {
   var context = new Axios(defaultConfig);
   var instance = bind(Axios.prototype.request, context);
+  console.log('context');
+  console.log(context);
+  console.log(instance);
 
   // Copy axios.prototype to instance
   utils.extend(instance, Axios.prototype, context);
