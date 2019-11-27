@@ -107,4 +107,21 @@ Vue.prototype.$socailAxios = socialInstance;
   })
   ```
 
+### axios.create() 本身 是返回一个函数，怎样给这个函数 添加 诸如 interceptors 等属性？
+
+通过如下
+
+```
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+  utils.extend(instance, context);
+
+  return instance;
+```
+
 ### 拦截器怎样触发的呢？
+
+### axios 怎样与 xhr 结合的，除了 defaults 中的 adapter，各种成功、失败是怎样结合的？
