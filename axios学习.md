@@ -50,7 +50,7 @@
 		}
 	},
 	"method": "get",
-	"baseURL": "https://saas-api.mayitest.cn",
+	"baseURL": "https://www.baidu.com",
 	"url": "/user/users/show-reset-password"
 }
 ```
@@ -87,8 +87,8 @@
 			"authwangkai": "123"
 		},
 		"method": "get",
-		"baseURL": "https://saas-api.mayitest.cn",
-		"url": "https://saas-api.mayitest.cn/user/users/show-reset-password"
+		"baseURL": "https://www.baidu.com",
+		"url": "https://www.baidu.com/test"
 	},
 	"request": {}
 }
@@ -121,7 +121,7 @@ Error: Request failed with status code 417
 			"authwangkai": "123"
 		},
 		"method": "get",
-		"baseURL": "https://saas-api.mayitest.cn",
+		"baseURL": "https://www.baidu.com",
 		"params": {
 			"ufrom": "shequn",
 			"mobile": "15221299999",
@@ -129,7 +129,7 @@ Error: Request failed with status code 417
 			"vcode": "wptnt",
 			"vcode_key": "c0b0a1b344a4be16e0913466a447f7c4"
 		},
-		"url": "https://saas-api.mayitest.cn/user/users/add-pre-store"
+		"url": "https://www.baidu.com/user/users/add-pre-store"
 	},
 	"request": {},
 	"response": {
@@ -139,9 +139,9 @@ Error: Request failed with status code 417
 			"status_code": 417,
 			"debug": {
 				"line": 570,
-				"file": "/data/www/Saas/Modules/User/Http/Controllers/V1/UserController.php",
+				"file": "/data/UserController.php",
 				"class": "App\\Logics\\LogicWithErrorException",
-				"trace": ["#0 [internal function]: Modules\\User\\Http\\Controllers\\V1\\UserController->addPreStore(Object(Modules\\User\\Http\\Requests\\User\\AddPreStoreRequest))", "#1 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(55): call_user_func_array(Array, Array)", "#2 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(44): Illuminate\\Routing\\Controller->callAction('addPreStore', Array)", "#3 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Route.php(203): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(Modules\\User\\Http\\Controllers\\V1\\UserController), 'addPreStore')", "#4 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Route.php(160): Illuminate\\Routing\\Route->runController()", "#5 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Router.php(572): Illuminate\\Routing\\Route->run()", "#6 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#7 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#8 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#9 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#10 /data/www/Saas/app/Http/Middleware/CheckIp.php(21): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#11 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): App\\Http\\Middleware\\CheckIp->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#12 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#13 /data/www/Saas/vendor/dingo/api/src/Http/Middleware/PrepareController.php(45): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#14 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Dingo\\Api\\Http\\Middleware\\PrepareController->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#15 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#16 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#17 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Router.php(574): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))", "#18 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Router.php(533): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Dingo\\Api\\Http\\Request))", "#19 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Router.php(511): Illuminate\\Routing\\Router->dispatchToRoute(Object(Dingo\\Api\\Http\\Request))", "#20 /data/www/Saas/vendor/dingo/api/src/Routing/Adapter/Laravel.php(81): Illuminate\\Routing\\Router->dispatch(Object(Dingo\\Api\\Http\\Request))", "#21 /data/www/Saas/vendor/dingo/api/src/Routing/Router.php(513): Dingo\\Api\\Routing\\Adapter\\Laravel->dispatch(Object(Dingo\\Api\\Http\\Request), 'v1')", "#22 /data/www/Saas/vendor/dingo/api/src/Http/Middleware/Request.php(126): Dingo\\Api\\Routing\\Router->dispatch(Object(Dingo\\Api\\Http\\Request))", "#23 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(114): Dingo\\Api\\Http\\Middleware\\Request->Dingo\\Api\\Http\\Middleware\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#24 /data/www/Saas/vendor/barryvdh/laravel-cors/src/HandleCors.php(59): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#25 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Barryvdh\\Cors\\HandleCors->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#26 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(30): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#27 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#28 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#29 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#30 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php(46): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#31 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#32 /data/www/Saas/app/Http/Middleware/SetJwtSecret.php(59): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#33 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): App\\Http\\Middleware\\SetJwtSecret->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#34 /data/www/Saas/vendor/barryvdh/laravel-cors/src/HandleCors.php(59): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#35 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Barryvdh\\Cors\\HandleCors->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#36 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Dingo\\Api\\Http\\Request))", "#37 /data/www/Saas/vendor/dingo/api/src/Http/Middleware/Request.php(127): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))", "#38 /data/www/Saas/vendor/dingo/api/src/Http/Middleware/Request.php(103): Dingo\\Api\\Http\\Middleware\\Request->sendRequestThroughRouter(Object(Dingo\\Api\\Http\\Request))", "#39 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(148): Dingo\\Api\\Http\\Middleware\\Request->handle(Object(Dingo\\Api\\Http\\Request), Object(Closure))", "#40 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php(53): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))", "#41 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))", "#42 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(151): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))", "#43 /data/www/Saas/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))", "#44 /data/www/Saas/public/index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))", "#45 {main}"]
+				"trace": []
 			}
 		},
 		"status": 417,
@@ -162,15 +162,15 @@ Error: Request failed with status code 417
 				"authwangkai": "123"
 			},
 			"method": "get",
-			"baseURL": "https://saas-api.mayitest.cn",
+			"baseURL": "https://www.baidu.com",
 			"params": {
 				"ufrom": "shequn",
-				"mobile": "15221299999",
+				"mobile": "*******",
 				"type": 1,
 				"vcode": "wptnt",
 				"vcode_key": "c0b0a1b344a4be16e0913466a447f7c4"
 			},
-			"url": "https://saas-api.mayitest.cn/user/users/add-pre-store"
+			"url": "https://www.baidu.com/user/users/add-pre-store"
 		},
 		"request": {}
 	}

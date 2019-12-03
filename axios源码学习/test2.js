@@ -31,25 +31,46 @@
 // 		console.log('Got value: ' + result);
 // 	});
 
-var promise = Promise.resolve('1');
+// var promise = Promise.reject('1');
 
-promise.then(
-	(config) => {
-		console.log('2');
-	}, (err) => {
-		console.log('3');
-	}
-).then(
-	(config) => {
-		console.log('4');
-	}, (err) => {
-		console.log('5');
-	}
-).then(
-	(config) => {
-		console.log('6');
-	},
-	(err) => {
-		console.log('7');
-	}
-)
+// promise.then(
+// 	(config) => {
+// 		console.log('2');
+// 	}, (err) => {
+// 		console.log('3');
+// 	}
+// ).then(() => {
+// 	console.log('trigger timeout');
+// 	setTimeout(() => {
+// 		console.log('exec timeout');
+// 	})
+// }).then(
+// 	(config) => {
+// 		console.log('6');
+// 	},
+// 	(err) => {
+// 		console.log('7');
+// 	}
+// ).then(
+// 	(config) => {
+// 		console.log('8');
+// 	},
+// 	(err) => {
+// 		console.log('9');
+// 	}
+// )
+
+// console.log('at the bottom of code');
+
+setTimeout(function () {
+	console.log('setTimeout');
+})
+
+new Promise(function (resolve) {
+	console.log('promise');
+	resolve();
+}).then(function () {
+	console.log('then');
+})
+
+console.log('console');

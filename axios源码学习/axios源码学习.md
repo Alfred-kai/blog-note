@@ -3,11 +3,14 @@
 ### <span id="top">目录</span>
 
 - [目录结构](#1)
-- [图片压缩处理](#gzipImg)
-- [环境变量](#3)
-- [查看 vue-cli 项目配置](#4)
+- [无效写法](#2)
+- [给 axios 更改参数的几种形式？](#3)
+- [axios.create() 本身 是返回一个函数，怎样给这个函数 添加 诸如 interceptors 等属性？](#4)
+- [拦截器怎样触发的呢？](#5)
 
-## <span id="1">:palm_tree: 目录结构 </span>
+参考 [axios 的秘密](https://zhuanlan.zhihu.com/p/33918784)
+
+### <span id="1">:palm_tree: 目录结构 </span>
 
 - ![catalog](https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/axios/axios.png "catalog")
 
@@ -31,7 +34,7 @@ module.exports = function bind(fn, thisArg) {
 
 这个函数的作用是 用来，改变 fn 的执行的作用域的；
 
-### 无效写法
+### <span id="2">:palm_tree: 无效写法 </span>
 
 ```
 import Vue from "vue";
@@ -80,7 +83,7 @@ Vue.prototype.$socailAxios = socialInstance;
 
 待解决
 
-### 给 axios 更改参数的几种形式？
+### <span id="3">:palm_tree: 给 axios 更改参数的几种形式？ </span>
 
 本质都是修改 axios 实例的 defaults 属性内容,而实现方式都是通过 `Axios.prototype.request`来实现的；
 
@@ -107,7 +110,7 @@ Vue.prototype.$socailAxios = socialInstance;
   })
   ```
 
-### axios.create() 本身 是返回一个函数，怎样给这个函数 添加 诸如 interceptors 等属性？
+### <span id="3">:palm_tree: axios.create() 本身 是返回一个函数，怎样给这个函数 添加 诸如 interceptors 等属性？</span>
 
 通过如下
 
@@ -122,6 +125,108 @@ Vue.prototype.$socailAxios = socialInstance;
   return instance;
 ```
 
-### 拦截器怎样触发的呢？
+### <span id="3">:palm_tree: 拦截器怎样触发的呢？</span>
 
-### axios 怎样与 xhr 结合的，除了 defaults 中的 adapter，各种成功、失败是怎样结合的？
+通过 promise 链
+
+```javascript
+var chain = [dispatchRequest, undefined];
+var promise = Promise.resolve(config);
+this.interceptors.request.forEach(function unshiftRequestInterceptors(
+  interceptor
+) {
+  chain.unshift(interceptor.fulfilled, interceptor.rejected);
+});
+
+this.interceptors.response.forEach(function pushResponseInterceptors(
+  interceptor
+) {
+  chain.push(interceptor.fulfilled, interceptor.rejected);
+});
+
+while (chain.length) {
+  promise = promise.then(chain.shift(), chain.shift());
+}
+
+return promise;
+```
+
+通过上述代码，实现了类似如下效果：
+
+```javascript
+Promise.resolve(config).then(interceptors.request).then(dispatchRequest).then(interceptors.response).then(...)
+```
+
+### cancelToken 怎样实现 同一个 cancel token 取消多个请求的？
+
+```javascript
+console.log("start");
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios({
+  method: "get",
+  url: "/user?ID=12345",
+  cancelToken: source.token
+}).then(function(response) {
+  console.log(response);
+});
+
+axios({
+  method: "get",
+  url: "/country?ID=12345",
+  cancelToken: source.token
+}).then(function(response) {
+  console.log(response);
+});
+
+console.log("end--prepare to cancel");
+source.cancel("Operation canceled by the user.");
+```
+
+要明白这个问题，必须对 JS 的运行机制非常清楚，诸如 宏任务、微任务的概念，具体看[这里](https://segmentfault.com/a/1190000018227028);
+
+- 这段代码作为宏任务，进入主线程。
+- 先遇到 `axios cancelToken`,生成 cancelToken 对象。
+- 然后遇到第一个 axios 请求，执行合并参数、`Axios.prototype.request`，最终执行 `dispatchRequest`，生成 promise 链，完成注册。
+  ```javascript
+  Promise.resolve(config).then(interceptors.request).then(dispatchRequest).then(interceptors.response).then(...)
+  ```
+- 然后遇到第二个 axios 请求，操作同上。
+- 接下来执行 `source.cancel()`，`cancelToken` 实例中 `reason` 属性被赋值；
+
+  ```javascript
+  if (token.reason) {
+    // Cancellation has already been requested
+    return;
+  }
+
+  token.reason = new Cancel(message);
+  resolvePromise(token.reason);
+  ```
+
+- 好啦，整体代码 script 作为第一个宏任务执行结束;开始 promise.then 微任务，执行刚才生成的两个 promise 链；没有设置 interceptor，直接到 `dispatchRequest`；
+- 执行`throwIfCancellationRequested`
+
+  ```javascript
+  function dispatchRequest(config) {
+    throwIfCancellationRequested(config);
+  }
+
+  function throwIfCancellationRequested(config) {
+    if (config.cancelToken) {
+      config.cancelToken.throwIfRequested();
+    }
+  }
+  ```
+
+  - 执行 cancelToken 原型中 `throwIfRequested`,因为 cancelToken 实例 reason 属性已经被赋值，所以请求取消；同时，由于两个请求使用的是同一个 cancelToken 实例，所以可以取消多个 http 请求。
+    ```javascript
+    CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+      if (this.reason) {
+        throw this.reason;
+      }
+    };
+    ```
+
+通过 cancelToken 这块的代码，对于面向对象编程理解深了一步；各个文件中间，通过暴露的接口进行 通信（比如 xhr.js 和 axios 各种配置的通信）；面向对象可以更好的解释这个通信过程；而如果使用 面向过程的编程方式，估计会乱成一锅粥

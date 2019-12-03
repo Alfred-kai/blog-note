@@ -53,7 +53,7 @@ p.then().then()
 2. **then 链**
    then 函数是可以有两个参数函数的，fulfilled rejected,一般只写一个函数 fulfilled;
 
-- 如果两个参数函数，都是同步操作；则 then 函数按照顺序执行，并且只执行 fulfilled 函数；
+- 如果两个参数函数，都是同步函数，则 then 函数按照顺序执行；如果上一个 then 函数执行的结果，不返回 promise，则默认执行 fulfilled 函数；
 
   ```javascript
   var promise = Promise.reject("1");
@@ -133,58 +133,137 @@ promise
 6
 ```
 
-- 如果两个参数函数，返回 promise，则后面的 then 会等待前面的 promise 执行完之后，采取执行；
+[========]
 
-  ```
+```javascript
+var promise = Promise.reject("1");
+
+promise
+  .then(
+    config => {
+      console.log("2");
+    },
+    err => {
+      console.log("3");
+    }
+  )
+  .then(() => Promise.reject("0"))
+  .then(
+    config => {
+      console.log("6");
+    },
+    err => {
+      console.log("7");
+    }
+  )
+  .then(
+    config => {
+      console.log("8");
+    },
+    err => {
+      console.log("9");
+    }
+  );
+```
+
+输出
+
+```
+3
+7
+8
+```
+
+- 如果两个参数函数，含有异步函数（setTimeout 等），则 then 函数按照顺序触发；
+
+```javascript
+var promise = Promise.reject("1");
+
+promise
+  .then(
+    config => {
+      console.log("2");
+    },
+    err => {
+      console.log("3");
+    }
+  )
+  .then(() => {
+    console.log("trigger timeout");
+    setTimeout(() => {
+      console.log("exec timeout");
+    });
+  })
+  .then(
+    config => {
+      console.log("6");
+    },
+    err => {
+      console.log("7");
+    }
+  )
+  .then(
+    config => {
+      console.log("8");
+    },
+    err => {
+      console.log("9");
+    }
+  );
+```
+
+输出
+
+```
+3
+trigger timeout
+6
+8
+exec timeout
+```
+
+- 如果两个参数函数，返回 promise，则后面的 then 会等待前面的 promise 执行完之后，才去执行；
+
+  ```javascript
   // 0.5秒后返回input*input的计算结果:
   function multiply(input) {
-      return new Promise(function (resolve, reject) {
-          log('calculating ' + input + ' x ' + input + '...');
-          setTimeout(resolve, 500, input * input);
-      });
+    return new Promise(function(resolve, reject) {
+      log("calculating " + input + " x " + input + "...");
+      setTimeout(resolve, 500, input * input);
+    });
   }
 
   // 0.5秒后返回input+input的计算结果:
   function add(input) {
-      return new Promise(function (resolve, reject) {
-          log('calculating ' + input + ' + ' + input + '...');
-          setTimeout(resolve, 500, input + input);
-      });
+    return new Promise(function(resolve, reject) {
+      log("calculating " + input + " + " + input + "...");
+      setTimeout(resolve, 500, input + input);
+    });
   }
 
-  var p = new Promise(function (resolve, reject) {
-      log('start new Promise...');
-      resolve(123);
+  var p = new Promise(function(resolve, reject) {
+    log("start new Promise...");
+    resolve(123);
   });
 
   p.then(multiply)
-  .then(add)
-  .then(multiply)
-  .then(add)
-  .then(function (result) {
-      log('Got value: ' + result);
-  });
+    .then(add)
+    .then(multiply)
+    .then(add)
+    .then(function(result) {
+      log("Got value: " + result);
+    });
   ```
 
-- 独特的链式操作
+  #### promise 链式操作与其他 JS
 
-  ```
-  var promise=Promise.reject('1');
+  ```javascript
+  const f = () => console.log("now");
+  Promise.resolve().then(f);
+  console.log("next");
 
-  promise.then(
-    (config)=>{
-      console.log('2');
-    },(err)=>{
-      console.log('3');
-    }
-  ).then(()=>
-    Promise.reject('0')
-  ).then(
-    (config)=>{
-      console.log('6');
-    },
-    (err)=>{
-      console.log('7');
-    }
-  )
+  // next
+  // now
   ```
+
+  这个问题涉及到 [这一次，彻底弄懂 JavaScript 执行机制](https://segmentfault.com/a/1190000018227028)
