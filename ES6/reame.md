@@ -4,6 +4,7 @@
 
 - [class 使用心得](#1)
 - [Promise 使用心得](#2)
+- [for in 与 for of](#3)
 
 ### <span id="1">:palm_tree: class 使用心得 </span>
 
@@ -174,6 +175,49 @@ promise
 8
 ```
 
+[===]
+
+```javascript
+var promise = Promise.reject("1");
+
+promise
+  .then(
+    config => {
+      console.log("2");
+    },
+    err => {
+      console.log("3");
+    }
+  )
+  .then(() => {
+    throw new Error("sorry");
+  })
+  .then(
+    config => {
+      console.log("6");
+    },
+    err => {
+      console.log("7");
+    }
+  )
+  .then(
+    config => {
+      console.log("8");
+    },
+    err => {
+      console.log("9");
+    }
+  );
+```
+
+输出
+
+```
+3
+7
+8
+```
+
 - 如果两个参数函数，含有异步函数（setTimeout 等），则 then 函数按照顺序触发；
 
 ```javascript
@@ -267,3 +311,5 @@ exec timeout
   ```
 
   这个问题涉及到 [这一次，彻底弄懂 JavaScript 执行机制](https://segmentfault.com/a/1190000018227028)
+
+### <span id="3">:palm_tree: for in 与 for of

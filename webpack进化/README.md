@@ -22,3 +22,35 @@ module.exports = {
 ## <span id="2">:palm_tree: publicPath 理解 </span>
 
 [webpack 配置 publicPath 的理解](https://www.cnblogs.com/SamWeb/p/8353367.html)
+
+### proxy
+
+接口后台地址
+
+```javascript
+https://paas.mayitest.cn/services/uaa/api/oauth/password-noCaptcha
+```
+
+前端请求地址
+
+```
+/pms/uaa/api/oauth/password-noCaptcha
+```
+
+proxy 配置
+
+```javascript
+proxy: {
+    '/pms': {
+      target: 'https://paas-dev.mayitest.cn/services', //GateWay
+      changeOrigin: true,
+      pathRewrite: { '^/pms': '' },
+    },
+  },
+```
+
+前端浏览器实际请求地址
+
+```
+http://localhost:8888/pms/uaa/api/oauth/password-noCaptcha
+```

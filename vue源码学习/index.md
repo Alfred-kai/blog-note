@@ -135,3 +135,39 @@ user watcher
 3.
 nextTick 是把要执行的任务推入到一个队列中，在下一个 tick 同步执行
 数据改变后触发渲染 watcher 的 update，但是 watchers 的 flush 是在 nextTick 后，所以重新渲染是异步的；
+
+3 编译
+
+\$mount->compileToFunctions->createCompiler->createCompilerCreator->createCompileToFunctionFn->compile
+
+(1) \$mount 调用 compileToFunctions
+
+(2) const compileToFunctions=createCompileToFunctionFn();
+
+(3) compileToFunctions 中使用了 compile 函数;
+
+(3.1) createCompiler 函数中定义了 compile 函数
+
+(3.2) const createCompiler=createCompilerCreator(baseCompile);
+
+(4) compile 函数使用了 baseCompile 函数
+
+- 模板字符串生成 AST 树
+
+```javascript
+const ast = parse(template.trim(), options);
+```
+
+- 优化语法树
+
+```javascript
+optimize(ast, options);
+```
+
+- 生成可执行的代码
+
+```javascript
+const code = generate(ast, options);
+```
+
+[函数柯里化](https://www.jianshu.com/p/2975c25e4d71)

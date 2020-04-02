@@ -617,24 +617,21 @@ export default new Date();
 
 自己总结这篇的时候，查了不少资料，自己做了一些测试，尽量保证所写的结论，能够得到实践的支撑，以免贻误他人；如果文中，有哪些代码问题，或者逻辑错误，欢迎指正！
 
-左侧是本人微信号（加好友，备注：前端），右侧为个人公众号：`畅学前端`，不定期分享一些个人所学所感，欢迎大家关注鼓励！
 本人在日常学习中，也收集了一些有价值的资料，涉及到诸如源码、设计模式等，欢迎一起交流学习！
 
 <div align=center>
   <img
-    src="https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/wechat/info/self-wechat.jpg"
-    width="300"
-    height="300"
+    src="https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/wechat/info/combine.png"
     alt="微信号"
     align="center"
   />
-  <img
+  <!-- <img
     src="https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/wechat/info/qrcode.jpg"
     width="300"
     height="300"
     alt="畅学前端"
     align="center"
-  />
+  /> -->
 </div>
 
 ## 参考资料
