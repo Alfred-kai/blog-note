@@ -8,6 +8,10 @@
 - [还原已经删除的本地分支](#4)
 - [合并两个本地分支](#5)
 - [创建本地分支](#6)
+- [查看本地代码 连接几个源](#7)
+- [删除本地连接的源](#8)
+- [本地分支和远程源连接](#9)
+- [配置多个 ssh-key](https://www.jianshu.com/p/4e4ec9cc4753)
 
 ### <span id="1">:palm_tree: 比较某两次提交 差异</span>
 
@@ -81,5 +85,39 @@ git merge A
 
 ```
 git branch test
+
+```
+
+### <span id="7">:palm_tree: 查看本地代码 连接几个源</span>
+
+```javascript
+git remote
+```
+
+### <span id="8">:palm_tree: 删除本地连接的源 </span>
+
+```javascript
+git remote remove [name]
+```
+
+### <span id="9">:palm_tree: 本地连接源 相关命令 </span>
+
+![img](https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/git/git-remote.png "git remote")
+
+### <span id="10">:palm_tree: 本地分支和远程源连接 </span>
+
+```javascript
+git push --set-upstream origin dev
+
+
+git remote add origin https://github.com/Alfred-kai/sword.git
+git push -u origin master
+
+```
+
+### <span id="11">:palm_tree: 基于远程分支 新建分支 相关命令 </span>
+
+```
+git checkout -b dev_wk origin/dev_wk
 
 ```
