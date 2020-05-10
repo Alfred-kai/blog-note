@@ -1,5 +1,7 @@
 # Git 日常操作总结
 
+[git 总结](https://zhuanlan.zhihu.com/p/137194960?utm_source=wechat_timeline&utm_medium=social&utm_oi=684333080936845312&from=timeline)
+
 <span id="top">目录</span>
 
 - [比较某两次提交差异](#1)
