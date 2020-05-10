@@ -48,3 +48,22 @@
 ### dva 在业务页面，可以使用 dispath 调用 effects；对于 reducer 方法，也可以调用；
 
 ### http 请求过程中，需要 loading
+
+### http 协议
+
+[HTTP 首部 Connection 实践](https://www.jianshu.com/p/eba76cfc0424)
+
+### cookie
+
+[Cookie 中的 httponly 的属性和作用](https://blog.csdn.net/m0_37649018/article/details/82591116)
+
+### 为什么 class 实例 加了 connect 之后，父组件通过 ref 拿到之后，相应的方法都没有了？？ 在 pms 项目 子表格中出现的问题；
+
+### 多去研究下 工具函数库
+
+### 为什么本地开发环境好的，上服务后，报 useEffect 问题
+
+### 加载分两类
+
+1、组件的加载 loading
+2、http 的 loading
