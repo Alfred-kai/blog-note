@@ -43,7 +43,7 @@ export default class Quote extends React.Component {
         // quote 页面loading 状态控制
         <Spin spinning={models.quote}>
         // 请求table列表接口 loading状态控制
-          <Table dataSource={list} loading={effects['quote/fetchQuoteList']} />
+          <Table  dataSource={list} loading={effects['quote/fetchQuoteList']} />
           <Button onClick={this.queryDATA}>请求</Button>
         </Spin>
       </Spin>
