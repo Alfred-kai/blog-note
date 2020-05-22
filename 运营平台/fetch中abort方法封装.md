@@ -139,7 +139,7 @@ try {
 
 ## 代码
 
-fetch 封装,对于 json text 图片格式处理，以及 timeout、相关报错等作了处理，可以点击[获取]()；
+fetch 封装,对于 json text 图片格式处理，以及 timeout、相关报错等作了处理，可以点击[获取](https://github.com/Alfred-kai/blog-note/blob/master/%E8%BF%90%E8%90%A5%E5%B9%B3%E5%8F%B0/fetch%E5%B0%81%E8%A3%85.js)；
 
 ## 综述
 
