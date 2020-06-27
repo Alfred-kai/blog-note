@@ -67,3 +67,15 @@
 
 1、组件的加载 loading
 2、http 的 loading
+
+## basicLayout 组件中，怎么样 把 menuData 等一众属性放置在 this.props 中的，menuData 不是在 menu model 中吗？！
+
+## basicLayout 组件只执行一次，我切换了租户，怎么样让其重新执行一次 basicLayout 中 componentDidMount 方法？react 怎样实现卸载组件，重新加载
+
+## dva 分析文章
+
+[dva 分析](https://blog.dkvirus.top/frontend/dva/exit_state_not_empty.html)
+
+## 为什么在下级客户页面中，render 会执行 7 次之多；怎样才能减少次数？为什么在客户团队配置页面，拿到 10 条数据，在下级客户拿到 2 条数据，table 表格显示渲染 10 个 column，然后，state 变为 2 个后，还是 10 个，视图没有更新？导致只能在客户团队配置页面，使用 componentWillUNmount 钩子 去掉 才可以；
+
+## 本地开发有错，会展示错误的页面；但是 上了云服务之后，不会有错误页面，而是在当前页，卡住；
