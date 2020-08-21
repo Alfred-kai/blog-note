@@ -79,3 +79,33 @@
 ## 为什么在下级客户页面中，render 会执行 7 次之多；怎样才能减少次数？为什么在客户团队配置页面，拿到 10 条数据，在下级客户拿到 2 条数据，table 表格显示渲染 10 个 column，然后，state 变为 2 个后，还是 10 个，视图没有更新？导致只能在客户团队配置页面，使用 componentWillUNmount 钩子 去掉 才可以；
 
 ## 本地开发有错，会展示错误的页面；但是 上了云服务之后，不会有错误页面，而是在当前页，卡住；
+
+## 怎样让 route 参数在 props 中，而不是 为了获取 meta 参数，强行组装
+
+问题
+1、笔记本断网的情况下
+2、按钮权限控制组件
+3、所有页面搜索条件中 base 和 advanced 分布
+
+4、为什么有的时候 左侧菜单会消失
+5、为什么网址 是 http://localhost:8888/#/exception/500 也就是报 500 时，不是出现 500 页面 而是报---已解决
+
+```
+Unhandled Rejection (TypeError): Cannot read property '0' of undefined
+(anonymous function)
+src/components/GlobalHeader/RightContent.js:81
+  78 | getTenantList().then(res => {
+  79 |   this.setState({
+  80 |     tenantsList: res,
+> 81 |     a: res[0].code
+     | ^  82 |   })
+  83 |   setStorage(res[0].code, 'tenantId')
+  84 | })
+
+```
+
+6、部署的问题 一直刷新 的问题
+
+7、封装 http 时 区分开发环境还是正式环境 ，开发环境 将 400 的 detail 发出来；正式环境不发出来；
+
+8、antd 中 table column 中，key rowKey

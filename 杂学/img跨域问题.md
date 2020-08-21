@@ -80,6 +80,10 @@ TML 规范中图片有一个 crossorigin 属性，结合合适的 CORS 响应头
 
 尽管不通过 CORS 就可以在画布中使用图片，但是这会污染画布。一旦画布被污染，你就无法读取其数据。例如，你不能再使用画布的 toBlob(), toDataURL() 或 getImageData() 方法，调用它们会抛出安全错误。
 
+### canvas 跨域解决
+
+加时间戳
+
 ### 资料
 
 [HTTP 访问控制(CORS)](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
