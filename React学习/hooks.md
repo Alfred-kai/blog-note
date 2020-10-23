@@ -2,7 +2,7 @@
 
 2、为什么 react ref 这么难用？！！！！
 控制子组件实例 复杂的一批，尤其是和 connect 一起使用的时候，垃圾
-真他妈难
+真他妈难 22 1那你你·
 
 3、Modal 中 forceRender 加了之后，就可以获取到 form 实例，无需再在 setTimeout 中获取；原理是什么？
 
@@ -25,6 +25,15 @@
 ## hooks 理解（到底有什么好处？解决什么痛点）
 
 - hooks 可以封装逻辑（比如包含 http 这种），这部分可以替代 mixin 的功能；
+- 之前 class 会有很多状态需要 在 componentShouldUpdate 中做判断，通过 hooks 可以将 一个 class 拆分为多个，每一个使用 react.memo(react.callback)包裹来减少 rerender 次数；
+-
+
+[全面拥抱 React-Hooks](https://segmentfault.com/a/1190000020948922)
+
+## hooks 中 setState 是异步的，但是没有返回值 为什么不能像 class 编程中 那样，返回一个 promise？？？
+
+
+
 
 ## useRef 理解
 
