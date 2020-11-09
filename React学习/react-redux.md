@@ -66,7 +66,7 @@ const { funcName } = useContext(MyContext); // 通过 useContext 使用实例，
 
 10、为什么每一次需要计算 props
 
-11、怎样来判断内存地址变化？
+11、怎样来判断内存地址变化？ 看完后才明白，其实很简单：objA===objB；
 
 12、为什么
 
@@ -157,3 +157,182 @@ function Counter({ initialCount }) {
 如您所见，第三个参数是要执行的初始动作，在初始渲染期间应用。
 
 useReducer 中，抛出的 dispatch 函数，为什么只要对应的 reducer 函数中有数据更新，当前组件就会 re-render？？？还是只要运行 dispatch 方法就会 re-render
+
+16、 selectorFactory 的作用 最终起作用的是 finalPropsSelectorFactory 函数
+
+由 dispatch、props、state 计算 new props；
+
+分为两种，pure 或者 not pure；
+
+几个变量定义
+
+- wrapperProps
+
+```javascript
+const { forwardedRef, ...wrapperProps } = props;
+```
+
+- actualChildProps 是最终处理结果
+
+```javascript
+// 最终使用的 props
+const actualChildProps = usePureOnlyMemo(() => {
+  // ...忽略部分代码
+  return childPropsSelector(store.getState(), wrapperProps);
+}, [store, previousStateUpdateResult, wrapperProps]);
+```
+
+```javascript
+// eg
+// WrappedComponent: class AddTodo
+// areMergedPropsEqual: ƒ shallowEqual(objA, objB)
+// areOwnPropsEqual: ƒ shallowEqual(objA, objB)
+// areStatePropsEqual: ƒ shallowEqual(objA, objB)
+// areStatesEqual: ƒ strictEqual(a, b)
+// displayName: "Connect(AddTodo)"
+// getDisplayName: ƒ getDisplayName(name)
+// initMapDispatchToProps: ƒ initConstantSelector(dispatch, options)
+// initMapStateToProps: ƒ initConstantSelector(dispatch, options)
+// initMergeProps: ƒ ()
+// methodName: "connect"
+// pure: true
+// renderCountProp: undefined
+// shouldHandleStateChanges: false
+// storeKey: "store"
+// wrappedComponentName: "AddTodo"
+```
+
+- newChildProps
+
+```javascript
+// eg
+// activeFilter: "all"
+// setFilter: ƒ ()
+
+try {
+  // Actually run the selector with the most recent store state and wrapper props
+  // to determine what the child props should be
+  newChildProps = childPropsSelector(
+    latestStoreState,
+    lastWrapperProps.current
+  );
+} catch (e) {
+  error = e;
+  lastThrownError = e;
+}
+```
+
+- lastChildProps 是一个由 useRef 创建的变量，来标记 ChildProps 是否确实发生了变化；
+
+```javascript
+if (newChildProps === lastChildProps.current) {
+  if (!renderIsScheduled.current) {
+    notifyNestedSubs();
+  }
+} else {
+  // 执行更新操作
+}
+```
+
+- renderIsScheduled 也是一个由 useRef 创建的变量，感觉没啥用；
+
+- lastWrapperProps 是一个由 useRef 创建的变量，用来保存 wrapperProps；
+
+- childPropsFormStoreUpdate 是一个由 useRef 创建的变量，用来保存 childProps
+
+## 整体逻辑梳理
+
+redux 仅仅负责存储数据
+
+当 A、B 两个组件共同组成一个功能时，A 组件 dispatch 一个 action，将数据存储在 redux 中；react-redux 通过 createContext，保存了 redux 的 store，命名为 contextValue；在 react-redux 通过监控 contextValue，来实现对于 redux 的 store 的监控，进而计算 是否需要在 B 组件 re-render 相应的数据；
+
+selectorFactory 本质上是 pureFinalPropsSelectorFactory 或者 impureFinalPropsSelectorFactory；
+
+stateProps 是 connect 参数中 第一个参数 stateToProps 的结果；
+dispatchProps 是 connect 参数中 第二个参数 dispatchToProps 的结果；
+
+计算过程中，判断状态是否发生变化，使用方法 areStatesEqual,即 strictEqual
+
+```javascript
+function strictEqual(a, b) {
+  return a === b;
+}
+```
+
+计算过程中，判断 props 是否发生变化，使用方法 areOwnPropsEqual，即 shallowEqual
+
+需要说明的是 areStatePropsEqual、areMergedPropsEqual，也是使用 shallowEqual；
+
+```javascript
+// shallowEqual.js
+const hasOwn = Object.prototype.hasOwnProperty;
+
+function is(x, y) {
+  if (x === y) {
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    return x !== x && y !== y;
+  }
+}
+
+export default function shallowEqual(objA, objB) {
+  if (is(objA, objB)) return true;
+
+  if (
+    typeof objA !== "object" ||
+    objA === null ||
+    typeof objB !== "object" ||
+    objB === null
+  ) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) return false;
+
+  for (let i = 0; i < keysA.length; i++) {
+    if (!hasOwn.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+```
+
+## STORE_UPDATED 方法，被应用在哪里了，为什么没有看到定义？还是在 redux 底层被定义了？？
+
+解决了
+
+```javascript
+// 这是定义的reducer
+function storeStateUpdatesReducer(state, action) {
+  const [, updateCount] = state
+  return [action.payload, updateCount + 1]
+}
+
+const initStateUpdates = () => [null, 0]
+
+
+
+// 使用时
+
+ const [
+        [previousStateUpdateResult],
+        forceComponentUpdateDispatch
+      ] = useReducer(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates)
+
+
+ forceComponentUpdateDispatch({
+    type: 'STORE_UPDATED',
+    payload: {
+      error
+    }
+  })
+
+
+其中，STORE_UPDATED  这个action 类型，在reducer中，并未定义 只是起一个 增强可读性的作用；因为reducer定义的时候，并未做什么switch来做判断，统一来返回一个数组；也就是页面渲染其实是通过useReducer来使state 自增来实现的；
+
+```

@@ -5,3 +5,6 @@
 3、如果一定要修饰函数，可以采用高阶函数的形式直接执行。[为什么修饰器不能用于函数](https://www.jianshu.com/p/8745660de050)
 
 4、 [dva 在函数组件使用](https://blog.csdn.net/samyang1/article/details/80364566)
+
+QA：
+1、context 为什么变量在 consumer 中可以获取？能够全局共享数据 是怎么实现的？
