@@ -77,7 +77,35 @@ A：
 
 Q：history.pushState() 与 history.replaceState() 分别可以添加和修改历史记录条目
 
-history.pushState()
+A：history.pushState() [语法](https://developer.mozilla.org/zh-CN/docs/Web/API/History/pushState)
+
+> history.pushState(state, title[, url])
+
+- state
+  状态对象，一个 js 对象，key 值 自定义；可以通过 history.state 来查看当前历史记录条目对应的状态对象；
+- title
+  可以忽略，日常给空字符串就行了
+- url [可选]
+  新历史记录条目的 URL 由此参数指定;需要注意的是 url 值 必须与当前网址同源；
+
+  需要注意的是，只要执行了 history.pushState，当前页面对应的历史状态条目，就已经切换到新的条目下，即便 url 没有发生任何变化；
+
+  eg：当前页面是 https://developer.mozilla.org/zh-CN/，在控制栏 输入`history.pushState({'gender':'man'},'')`,没有指定第三个参数 url，
+  执行后，会发现页面没有任何变化；但其实页面已经进入了 新的历史条目，通过 `history.state`来验证，发现 输出
+
+  ```javascript
+  {
+    gender: "man";
+  }
+  ```
+
+  Q：popstate 事件触发 [onpopstate](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/onpopstate)
+
+  A：调用 history.pushState()或者 history.replaceState()不会触发 popstate 事件；
+  popstate 事件只会在浏览器某些行为下触发, 比如点击后退、前进按钮(或者在 JavaScript 中调用 history.back()、history.forward()、history.go()方法)，此外，a 标签的锚点也会触发该事件；
+  页面如果被重新加载了，popstate 事件将不会被触发
+
+A：history.back()（相当于点击浏览器后退按钮）、history.forward()（相当于点击浏览器前进按钮）、history.go(-1) 都可以触发 popstate 事件；
 
 ## history
 

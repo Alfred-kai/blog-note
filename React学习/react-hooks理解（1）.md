@@ -472,7 +472,7 @@ const SonComponentB = React.memo(() => {
 ```
 
 结果输出：
-![remove.react.moemo.wmv   ](https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/react-hooks/remove.react.moemo.gif)
+![remove.react.moemo.wmv](https://alfred-github.oss-cn-shanghai.aliyuncs.com/document/react-hooks/remove.react.moemo.gif)
 
 ### 结论
 
